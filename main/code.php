@@ -26,13 +26,6 @@ if(isset($_POST['complaintbtn']))
     $date = date('Y-m-d H:i:s');
     $status = $_POST['status'];
 
-    $access = $connection->prepare("SELECT `i_name` FROM `item-list` WHERE i_id=? ");
-    $access->bind_param('i', $itemid);
-    $access->execute();
-    $result = $access->get_result();
-    $value = $result->fetch_object();
-    $item_name = $value->i_name;
-
      $username_query = "SELECT * FROM register WHERE username='$username' ";
      $username_query_run = mysqli_query($connection, $username_query);
      if(mysqli_num_rows($username_query_run) > 0)
@@ -48,7 +41,7 @@ if(isset($_POST['complaintbtn']))
 
 
 
-        $query = "INSERT INTO complaints (e_id,username,i_id,itemname,date,status) VALUES ('$e_id','$username','$itemid','$item_name','$date','$status')";
+        $query = "INSERT INTO complaints (e_id,username,i_id,date,status) VALUES ('$e_id','$username','$itemid','$date','$status')";
         $query_run = mysqli_query($connection, $query);
         
         if($query_run)

@@ -67,7 +67,7 @@ TCIL
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./notifications.html">
+            <a class="nav-link" href="./newcomplaints.php">
               <i class="material-icons">notifications</i>
               <p>Create New Ticket</p>
             </a>
@@ -102,7 +102,7 @@ include('includes/searchbarstart.php');
                 <div class="card-body">
                   <div class="table-responsive">
                   <?php
-                $query = "SELECT * FROM complaints";
+                $query = "SELECT *,(SELECT i_name FROM `item-list` WHERE i_id=complaints.i_id) AS item FROM complaints";
                 $query_run = mysqli_query($connection, $query);
              ?>
                   <table class="table" id="dataTable" width="100%">
@@ -126,7 +126,7 @@ include('includes/searchbarstart.php');
                             <tr class=" text-primary">
                                 <!-- <td><?php  echo $row['id']; ?></td> -->
                                 <td><?php  echo $row['username']; ?></td>
-                                <td><?php  echo $row['itemname']; ?></td>
+                                <td><?php  echo $row['item']; ?></td>
                                 <td><?php  echo $row['date']; ?></td>
                                 <td><?php  echo $row['status']; ?></td>
                                 <td>
@@ -140,26 +140,12 @@ include('includes/searchbarstart.php');
                                 <button class="btn btn-link text-danger btn-just-icon remove" type="submit" title="Reset" name="reset_btn"><i class="material-icons">close</i></button>
                                 </form>
                                 </td>
-
-                                <!-- <td>
-                                    <form action="updatecomplaint.php" method="POST">
-                                        <input type="hidden" name="username" value="<?php echo $row['username']; ?>">
-                                        <button style="height:25px; padding-top:0px; padding-bottom:0px;" type="submit" class="btn btn-success" name="update_btn"> Update</button>
-                                    </form>
-                                </td> -->
-                                <!-- <td>
-                                    <form action="register_edit.php" method="POST">
-                                        <input type="hidden" name="edit_id" value="<?php echo $row['e_id']; ?>">
-                                        <button style="height:25px; padding-top:0px; padding-bottom:0px;" type="submit" class="btn btn-success" name="edit_btn"> EDIT</button>
-                                    </form>
-                                </td> -->
-
                             </tr>
                         <?php
                             } 
                         }
                         else {
-                            echo "No Complaints Found";
+                            echo "No Complaints Found";  
                         }
                         ?>
                     </tbody>

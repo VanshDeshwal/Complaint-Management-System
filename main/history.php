@@ -64,7 +64,7 @@ include('includes/searchbarstart.php');
                 <div class="card-body">
                   <div class="table-responsive">
                     <?php
-                        $query = "SELECT * FROM complaints WHERE username='$user_name' ";
+                        $query = "SELECT *,(SELECT i_name FROM `item-list` WHERE i_id=complaints.i_id) AS item FROM complaints WHERE username='$user_name' ";
                         $query_run = mysqli_query($connection, $query);
                     ?>
                     <table class="table" id="dataTable" width="100%">
@@ -85,7 +85,7 @@ include('includes/searchbarstart.php');
                         ?>
                             <tr class=" text-primary">
                                 <td><?php  echo $row['username']; ?></td>
-                                <td><?php  echo $row['itemname']; ?></td>
+                                <td><?php  echo $row['item']; ?></td>
                                 <td><?php  echo $row['date']; ?></td>
                                 <td><?php  echo $row['status']; ?></td>
                             </tr>
